@@ -19,6 +19,8 @@ async function getFullWeather() {
     weatherDaily.innerHTML = "";
     return;
   }
+  localStorage.setItem('savedCity', city);
+
 
   try {
     const response = await fetch('/fullweather', {
@@ -41,13 +43,22 @@ async function getFullWeather() {
     const vantText = currentWeather.vant;
 
     weatherCurrent.innerHTML = `
-      <h2>🌤️ Vremea în ${currentWeather.oras}</h2>
-      <p>${currentWeather.descriere}</p>
-      <p>🌡️ ${currentWeather.temperaturaC.toFixed(1)}°C / ${currentWeather.temperaturaF.toFixed(1)}°F</p>
-      <p>💧 Umiditate: ${currentWeather.umiditate}%</p>
-      <p>💨 Vânt din ${vantText}</p>
-      <p>🌅 Răsărit: ${currentWeather.rasarit}</p>
-      <p>🌇 Apus: ${currentWeather.apus}</p>
+
+      <div class="divWeather">
+        <div class="leftWeather">
+          <p><img src="/images/cloudy.png" class="imagineIcon">${currentWeather.descriere.charAt(0).toUpperCase() + currentWeather.descriere.slice(1)}</p>
+          <p>🌡️ ${currentWeather.temperaturaC.toFixed(1)}°C / ${currentWeather.temperaturaF.toFixed(1)}°F</p>
+          <p>💧 Umiditate: ${currentWeather.umiditate}%</p>
+        </div>
+        <div class="middleWeather">
+              <h2>🌤️ Vremea în ${currentWeather.oras}</h2>
+        </div>
+        <div class="rightWeather">
+          <p>💨 Vânt din ${vantText}</p>
+          <p>🌅 Răsărit: ${currentWeather.rasarit}</p>
+          <p>🌇 Apus: ${currentWeather.apus}</p>
+        </div>
+      </div>
       <p><strong>${currentWeather.mesaj}</strong></p>
     `;
 
@@ -78,4 +89,11 @@ async function getFullWeather() {
     weatherHourly.innerHTML = "";
     weatherDaily.innerHTML = "";
   }
+  window.addEventListener('DOMContentLoaded', () => {
+    const savedCity = localStorage.getItem('savedCity');
+    if (savedCity) {
+      document.getElementById('cityInput').value = savedCity;
+      getFullWeather();
+    }
+  });
 }
