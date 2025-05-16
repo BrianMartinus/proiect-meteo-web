@@ -89,11 +89,11 @@ async function getFullWeather() {
     weatherHourly.innerHTML = "";
     weatherDaily.innerHTML = "";
   }
-  window.addEventListener('DOMContentLoaded', () => {
-    const savedCity = localStorage.getItem('savedCity');
-    if (savedCity) {
-      document.getElementById('cityInput').value = savedCity;
-      getFullWeather();
-    }
-  });
-}
+} 
+window.addEventListener('DOMContentLoaded', () => {
+  const savedCity = localStorage.getItem('savedCity');
+  if (savedCity) {
+    document.getElementById('cityInput').value = savedCity;
+    getFullWeather();
+  }
+});
