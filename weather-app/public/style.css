@@ -6,7 +6,7 @@ body {
  display: flex;
  justify-content: center;
  align-items: center;
- height: 100vh;
+
  padding: 20px;
  box-sizing: border-box;
 }
@@ -42,6 +42,42 @@ body {
 
     color: black;
     font-weight:bold;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.other-bg {
+    background-image: url('/images/fragmentat.jpg');
+    background-blend-mode: overlay;
+    background-size: 250%;
+    background-repeat: no-repeat;
+
+    background-position: center;
+
+    color: black;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+.night{
+    background-image: url('/images/night.jpg');
+    background-blend-mode: overlay;
+    background-size: 250%;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: white;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.cloudy-bg-night{
+    background-image: url('/images/noapteNor.jpg');
+    background-blend-mode: overlay;
+    background-size: 250%;
+    background-repeat: no-repeat;
+
+    background-position: center;
+
+    color: white;
+    font-weight: bold;
     background-color: rgba(255, 255, 255, 0.5);
 }
 
@@ -157,4 +193,8 @@ button:hover {
 
 .weather-box:hover {
  transform: scale(1.05);
+}
+
+.underline{
+    text-decoration: underline;
 }

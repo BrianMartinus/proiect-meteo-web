@@ -54,7 +54,7 @@ async function getFullWeather() {
           <p>💧 <b>Umiditate:</b> ${currentWeather.umiditate}%</p>
         </div>
         <div class="middleWeather">
-            <h2>🌤️ Vremea în ${currentWeather.oras}</h2>
+            <h2>🌤️ Vremea în <span class="underline">${currentWeather.oras}</span></h2>
         </div>
         <div class="rightWeather">
           <p>💨 <b>Vânt din</b> ${vantText}</p>
@@ -70,13 +70,25 @@ weatherHourly.innerHTML = peOre.map(item => {
   // Verificăm descrierea și adăugăm clasa corespunzătoare
   let bgClass = '';
   const desc = item.descriere.toLowerCase();
-  
+  const ora = item.data.split(" ")[1].split(":")[0];
   if (desc.includes('ploaie')) {
     bgClass = 'rainy-bg';
   } else if (desc.includes('soare') || desc.includes('însorit') || desc.includes('senin')) {
     bgClass = 'sunny-bg';
   } else if (desc.includes('nor') || desc.includes('înnorat')) {
     bgClass = 'cloudy-bg';
+  }else{
+    bgClass = 'other-bg';
+  }
+  
+  if((ora >=21 && ora <=23 )|| (ora >=0 && ora <=5)){
+    if (desc.includes('ploaie')) {
+      bgClass = 'rainy-bg-night';
+    } else if (desc.includes('nor')){
+      bgClass = 'cloudy-bg-night';
+    }else{
+      bgClass = 'night';
+    }
   }
 
   return `
@@ -107,7 +119,11 @@ weatherHourly.innerHTML = peOre.map(item => {
         bgClass = 'sunny-bg';
       } else if (desc.includes('nor') || desc.includes('înnorat')) {
         bgClass = 'cloudy-bg';
+      } else {
+        bgClass = 'other-bg';
       }
+
+ 
 
       return `
         <div class="weather-box ${bgClass}">
