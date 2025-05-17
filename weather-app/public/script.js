@@ -86,16 +86,18 @@ weatherHourly.innerHTML = peOre.map(item => {
         <img src="/images/cloudy.png" class="imagineIcon">
         <p>${item.descriere.charAt(0).toUpperCase() + item.descriere.slice(1)}</p>
       </div>
-      <p>🌡️ ${item.temperaturaC}°C</p>
+      <p>🌡️ ${item.temperaturaC}°C / ${item.temperaturaF}°F</p>
+
       <p>💧 ${item.umiditate}% umiditate</p>
-      <p>💨 Vânt din ${directionFromDegrees(item.vant)}</p>
+     <p>💨 Vânt: ${item.vant}</p>
+
     </div>
   `;
 }).join("");
 
     // Daily forecast - Adding wind direction as well
     weatherDaily.innerHTML = peZile.map(item => {
-      // Verificăm descrierea și adăugăm clasa corespunzătoare
+      
       let bgClass = '';
       const desc = item.descriere.toLowerCase();
 
@@ -114,9 +116,10 @@ weatherHourly.innerHTML = peOre.map(item => {
             <img src="/images/cloudy.png" class="imagineIcon">
           <p>${item.descriere.charAt(0).toUpperCase() + item.descriere.slice(1)}</p>
           </div>
-          <p style="font-size:28px;">🌡️ ${item.temperaturaC}°C</p>
+          <p style="font-size:28px;">🌡️ ${item.temperaturaC}°C / ${item.temperaturaF}°F</p>
           <p>💧 ${item.umiditate}% umiditate</p>
-          <p>💨 Vânt din ${directionFromDegrees(item.vant)}</p>
+          <p>💨 Vânt: ${item.vant}</p>
+
         </div>
       `;
     }).join("");
