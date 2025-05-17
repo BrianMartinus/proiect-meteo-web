@@ -24,12 +24,62 @@ body {
 }
 .imagineIcon{
     max-width:1vw;
+    max-height:2vh;
+}
+.leftWeather div p b{
+    display:flex;
+    gap:5px;
+    align-items: center;
+}
+
+.rainy-bg {
+    background-image:url('/images/rain.jpg');
+    background-blend-mode: overlay;
+    background-size: 250%;
+    background-repeat:no-repeat;
+
+     background-position: center;
+
+    color: black;
+    font-weight:bold;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Background pentru soare */
+.sunny-bg {
+    background-image: url('/images/sunny.jpg');
+    background-blend-mode: overlay;
+    background-size: 200%;
+    background-position: center;
+    font-weight: bold;
+    color:black;
+}
+
+/* Background pentru nori */
+.cloudy-bg {
+    background-image: url('/images/cloudyy.jpg');
+    background-blend-mode: overlay;
+    background-size: 275%;
+    background-position: center;
+    color: #333; 
+    font-weight:bold
+}
+.comboImage{
+    display:flex;
+    flex-direction:row;
+    gap:5px;
+    align-items: center;
+    justify-content: center;
 }
 
 .leftWeather p:nth-child(1){
     display:flex;
     flex-direction:row;
     gap:5px;
+}
+
+.leftWeather {
+    text-align: left;
 }
 .divWeather{
   display:grid;

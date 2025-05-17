@@ -46,43 +46,80 @@ async function getFullWeather() {
 
       <div class="divWeather">
         <div class="leftWeather">
-          <p><img src="/images/cloudy.png" class="imagineIcon">${currentWeather.descriere.charAt(0).toUpperCase() + currentWeather.descriere.slice(1)}</p>
-          <p>🌡️ ${currentWeather.temperaturaC.toFixed(1)}°C / ${currentWeather.temperaturaF.toFixed(1)}°F</p>
-          <p>💧 Umiditate: ${currentWeather.umiditate}%</p>
+        <div>
+      
+          <p><b><img src="/images/cloudy.png" class="imagineIcon">${currentWeather.descriere.charAt(0).toUpperCase() + currentWeather.descriere.slice(1)}</b></p>
+        </div>
+          <p>🌡️ <b>Temperatura:</b> ${currentWeather.temperaturaC.toFixed(1)}°C / ${currentWeather.temperaturaF.toFixed(1)}°F</p>
+          <p>💧 <b>Umiditate:</b> ${currentWeather.umiditate}%</p>
         </div>
         <div class="middleWeather">
-              <h2>🌤️ Vremea în ${currentWeather.oras}</h2>
+            <h2>🌤️ Vremea în ${currentWeather.oras}</h2>
         </div>
         <div class="rightWeather">
-          <p>💨 Vânt din ${vantText}</p>
-          <p>🌅 Răsărit: ${currentWeather.rasarit}</p>
-          <p>🌇 Apus: ${currentWeather.apus}</p>
+          <p>💨 <b>Vânt din</b> ${vantText}</p>
+          <p>🌅 <b>Răsărit</b>: ${currentWeather.rasarit}</p>
+          <p>🌇 <b>Apus:</b> ${currentWeather.apus}</p>
         </div>
       </div>
       <p><strong>${currentWeather.mesaj}</strong></p>
     `;
 
-    // Hourly forecast - Adding wind direction with the helper function
-    weatherHourly.innerHTML = peOre.map(item => `
-      <div class="weather-box">
-        <p><strong>${item.data.split(" ")[1].slice(0,5)}</strong></p>
-        <p>${item.descriere}</p>
-        <p>🌡️ ${item.temperaturaC}°C</p>
-        <p>💧 ${item.umiditate}%</p>
-        <p>💨 Vânt din ${directionFromDegrees(item.vant)}</p> <!-- Update here -->
+
+weatherHourly.innerHTML = peOre.map(item => {
+  // Verificăm descrierea și adăugăm clasa corespunzătoare
+  let bgClass = '';
+  const desc = item.descriere.toLowerCase();
+  
+  if (desc.includes('ploaie')) {
+    bgClass = 'rainy-bg';
+  } else if (desc.includes('soare') || desc.includes('însorit') || desc.includes('senin')) {
+    bgClass = 'sunny-bg';
+  } else if (desc.includes('nor') || desc.includes('înnorat')) {
+    bgClass = 'cloudy-bg';
+  }
+
+  return `
+    <div class="weather-box ${bgClass}">
+      <p><strong>🕒${item.data.split(" ")[1].slice(0,5)}</strong></p>
+      <div class="comboImage">
+        <img src="/images/cloudy.png" class="imagineIcon">
+        <p>${item.descriere.charAt(0).toUpperCase() + item.descriere.slice(1)}</p>
       </div>
-    `).join("");
+      <p>🌡️ ${item.temperaturaC}°C</p>
+      <p>💧 ${item.umiditate}% umiditate</p>
+      <p>💨 Vânt din ${directionFromDegrees(item.vant)}</p>
+    </div>
+  `;
+}).join("");
 
     // Daily forecast - Adding wind direction as well
-    weatherDaily.innerHTML = peZile.map(item => `
-      <div class="weather-box">
-        <p><strong>${item.data}</strong></p>
-        <p>${item.descriere}</p>
-        <p>🌡️ ${item.temperaturaC}°C</p>
-        <p>💧 ${item.umiditate}%</p>
-        <p>💨 Vânt din ${directionFromDegrees(item.vant)}</p> <!-- Update here -->
-      </div>
-    `).join("");
+    weatherDaily.innerHTML = peZile.map(item => {
+      // Verificăm descrierea și adăugăm clasa corespunzătoare
+      let bgClass = '';
+      const desc = item.descriere.toLowerCase();
+
+      if (desc.includes('ploaie')) {
+        bgClass = 'rainy-bg';
+      } else if (desc.includes('soare') || desc.includes('însorit') || desc.includes('senin')) {
+        bgClass = 'sunny-bg';
+      } else if (desc.includes('nor') || desc.includes('înnorat')) {
+        bgClass = 'cloudy-bg';
+      }
+
+      return `
+        <div class="weather-box ${bgClass}">
+          <p><strong>📅${item.data.charAt(0).toUpperCase() + item.data.slice(1)}</strong></p>
+          <div class="comboImage">
+            <img src="/images/cloudy.png" class="imagineIcon">
+          <p>${item.descriere.charAt(0).toUpperCase() + item.descriere.slice(1)}</p>
+          </div>
+          <p style="font-size:28px;">🌡️ ${item.temperaturaC}°C</p>
+          <p>💧 ${item.umiditate}% umiditate</p>
+          <p>💨 Vânt din ${directionFromDegrees(item.vant)}</p>
+        </div>
+      `;
+    }).join("");
 
   } catch (err) {
     weatherCurrent.innerHTML = "<p>Eroare la preluarea datelor.</p>";
@@ -97,3 +134,11 @@ window.addEventListener('DOMContentLoaded', () => {
     getFullWeather();
   }
 });
+
+function setBackgroundPentruVreme(item, elementWeatherBox) {
+  if (item.descriere.toLowerCase().includes("ploaie")) {
+    elementWeatherBox.className = "weather-box rainy-bg";
+  } else {
+    elementWeatherBox.className = "weather-box default-bg";
+  }
+}
