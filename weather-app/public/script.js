@@ -70,7 +70,8 @@ weatherHourly.innerHTML = peOre.map(item => {
   // Verificăm descrierea și adăugăm clasa corespunzătoare
   let bgClass = '';
   const desc = item.descriere.toLowerCase();
-  const ora = item.data.split(" ")[1].split(":")[0];
+  const ora = Number(item.data.split(" ")[1].split(":")[0]);
+
   if (desc.includes('ploaie')) {
     bgClass = 'rainy-bg';
   } else if (desc.includes('soare') || desc.includes('însorit') || desc.includes('senin')) {
@@ -82,7 +83,7 @@ weatherHourly.innerHTML = peOre.map(item => {
   }
   
   if((ora >=21 && ora <=23 )|| (ora >=0 && ora <=5)){
-    if (desc.includes('ploaie')) {
+    if (desc.includes('Ploaie')) {
       bgClass = 'rainy-bg-night';
     } else if (desc.includes('nor')){
       bgClass = 'cloudy-bg-night';
